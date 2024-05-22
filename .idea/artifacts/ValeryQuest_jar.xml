@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" name="ValeryQuest:jar">
+    <output-path>$PROJECT_DIR$/out/artifacts/ValeryQuest_jar</output-path>
+    <root id="archive" name="ValeryQuest.jar">
+      <element id="module-output" name="ValeryQuest" />
+    </root>
+  </artifact>
+</component>
