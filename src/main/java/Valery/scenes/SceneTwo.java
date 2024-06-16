@@ -13,20 +13,32 @@ public class SceneTwo extends AbstractScene {
     }
 
     @Override
-    public void enter() {
+    public void enter() throws Exception {
 
-        System.out.println("\nВы подходите к столу и видите два ноутбука:");
+        print("\nВы подходите к столу и видите два ноутбука:"+
+                "Выберите ноутбук (1 или 2): \n");
 
-        System.out.println("1. Старый компьютер с пылью на клавиатуре.");
-        System.out.println("2. Современный ноутбук, который так и манит.");
-        System.out.print("Выберите ноутбук (1 или 2): ");
+        int result = makeChoice(new String[]{
+                "Старый компьютер с пылью на клавиатуре",
+                "Современный ноутбук, который так и манит",
+                "вернуться назад (в холл)"
+        });
 
-        int choise = makeChoice(getScanner());
-
-        if (choise == 1) {
-            System.out.println("Похоже у тебя есть шанс чего-то достичь");
-            System.out.println("Ты получаешь призвание \"программист\" и новый ноутбук");
-            System.out.println("||            ||\n" +
+        if (result == 0) {
+            print("\nВы пытаетесь включаете старый компьютер, но он не загружается."+
+                    "Похоже, он давно не использовался, а поскольку вы нуб, вам его не починить"+
+                    "        |.-----.|\n" +
+                    "        ||x . x||\n" +
+                    "        ||_.-._||\n" +
+                    "        `--)-(--`\n" +
+                    "       __[=== o]___\n" +
+                    "      |:::::::::::|\\\n" +
+                    "      `-=========-`()");
+            getSceneManager().enterScene(SceneNames.SCENE_TWO);
+        } else if (result == 1) {
+            print("Похоже у тебя есть шанс чего-то достичь"+
+                    "Ты получаешь призвание \"программист\" и новый ноутбук"+
+                    "||            ||\n" +
                     "||            ||\n" +
                     "||            ||\n" +
                     "||            ||\n" +
@@ -37,42 +49,13 @@ public class SceneTwo extends AbstractScene {
                     "   \\      ____    \\   \n" +
                     "    \\_____\\___\\____\\");
 
-            System.out.println(getSceneManager().getCharacter().getCharacterName()+" встает на новый путь, да ему "
+            print(getSceneManager().getCharacter().getCharacterName()+" встает на новый путь, да ему "
                     +getSceneManager().getCharacter().getAge()+" но это не важно. Не важно что он раньше" +
                     " говорил о своих навыках \""+getSceneManager().getCharacter().getAnswer()+"\" - забыто, " +"теперь он Нуб Программист с хорошим ноутбуком," +
                     " пожелаем ему успехов!");
-
+            getSceneManager().enterScene(SceneNames.SCENE_THREE);
+        }else {
+            getSceneManager().enterScene(SceneNames.SCENE_ONE);
         }
-    }
-
-    private static int makeChoice(Scanner scanner) {
-        int choice;
-        while (true) {
-
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine(); // Очистка буфера после считывания числа
-                if (choice == 1) {
-                    break; // Выход из цикла, если выбор корректный
-                } else if (choice == 2) {
-                    System.out.println("\nВы пытаетесь включаете старый компьютер, но он не загружается.");
-                    System.out.println("Похоже, он давно не использовался, а поскольку вы нуб," +
-                            " вам его не починить");
-                    System.out.println("        |.-----.|\n" +
-                            "        ||x . x||\n" +
-                            "        ||_.-._||\n" +
-                            "        `--)-(--`\n" +
-                            "       __[=== o]___\n" +
-                            "      |:::::::::::|\\\n" +
-                            "      `-=========-`()");
-                } else {
-                    System.out.println("Ошибка: Выберите либо 1, либо 2, других вариантов нет.");
-                }
-            } else {
-                System.out.println("Ошибка: Лапушка, пока без отсебятины, выбери корректный вариант (число).");
-                scanner.next(); // Очистка буфера
-            }
-        }
-        return choice;
     }
 }

@@ -27,4 +27,6 @@ public class SceneManager {
     public Character getCharacter() {
         return character;
     }
+
+
 }

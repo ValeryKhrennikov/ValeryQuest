@@ -12,12 +12,9 @@ public class Main {
         Character character = new Character();
 
         SceneManager sceneManager = new SceneManager(character);
-        SceneFactory sceneFactory = new SceneFactory(scanner, sceneManager);
-        sceneManager.enterScene(SceneNames.BEGINNING);
-//        AbstractScene beginningScene = sceneFactory.getScene(SceneBeginning.class);
-//        if (beginningScene != null) {
-//            beginningScene.enter();
-//        }
 
+        SceneFactory sceneFactory = new SceneFactory(scanner, sceneManager);
+
+        sceneManager.enterScene(SceneNames.BEGINNING);
     }
 }

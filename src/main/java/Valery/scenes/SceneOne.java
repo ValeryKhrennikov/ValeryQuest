@@ -8,48 +8,28 @@ import java.util.Scanner;
 
 public class SceneOne extends AbstractScene {
 
+
     public SceneOne(Scanner mainScanner, SceneManager sceneManager) {
 
         super(SceneNames.SCENE_ONE, "\nИ так, начнем...", mainScanner, sceneManager);
-        System.out.println("in constructor");
     }
 
     @Override
     public void enter() throws Exception {
-        System.out.println(getSceneDescription());
-        System.out.println(getSceneManager().getCharacter().getCharacterName() + " " + getSceneManager().getCharacter().getSkill() + "\n");
-        System.out.println("Ты находишься в заброшенной старой усадьбе и перед тобой стоит выбор:");
+        print(getSceneDescription());
+        print(getSceneManager().getCharacter().getCharacterName() + " " + getSceneManager().getCharacter().getSkill() + "\n");
+        print("Ты находишься в заброшенной старой усадьбе и перед тобой стоит выбор:");
+        print("Выберите действие (1 или 2): ");
 
-        System.out.println("1. Подойти к столу и выбрать себе подходящее \"оружие\".");
-        System.out.println("2. Идти направо по коридору в неизвестность.");
+        int result = makeChoice(new String[]{
+                "Подойти к столу и выбрать себе подходящее \"оружие\".",
+                "Идти направо по коридору в неизвестность."
+        });
 
-        System.out.print("Выберите действие (1 или 2): ");
-
-        int choice = makeChoice(getScanner());
-
-        if (choice == 1) {
+        if (result == 0) {
             getSceneManager().enterScene(SceneNames.SCENE_TWO);
-        } else  {
+        } else if (result == 1) {
             getSceneManager().enterScene(SceneNames.SCENE_FIRST_DEATH);
         }
-    }
-    private static int makeChoice (Scanner scanner) {
-        int choice;
-        while (true) {
-
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine(); // Очистка буфера после считывания числа
-                if (choice > 0 && choice <= 2) {
-                    break; // Выход из цикла, если возраст корректный
-                } else {
-                    System.out.println("Ошибка: Выберите либо 1, либо 2, других вариантов нет.");
-                }
-            } else {
-                System.out.println("Ошибка: Лапушка, пока без отсебятины, выбери корректный вариант (число).");
-                scanner.next(); // Очистка буфера
-            }
-        }
-        return choice;
     }
 }

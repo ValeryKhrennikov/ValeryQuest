@@ -13,20 +13,19 @@ public class SceneFirstDeath extends AbstractScene {
 
     @Override
     public void enter() throws Exception {
-        System.out.println("\nВы идете по коридору направо и внезапно оказываетесь в тупике.");
-        System.out.println("Вам страшно, вы заблудились в этом коридоре, как в своей жизни," +
-                " вы постепенно впадаете  отчаяние");
 
-        System.out.println("1. Остатьс и умереть");
-        System.out.println("2. Вернуться назад и продолжить путь");
+        print("\nВы идете по коридору направо и внезапно оказываетесь в тупике."+
+                "\nВам страшно, вы заблудились в этом коридоре, как в своей жизни, вы постепенно впадаете  отчаяние"+
+                "\nВыберите действие (1 или 2): ");
 
-        System.out.print("Выберите действие (1 или 2): ");
+        int result = makeChoice(new String[]{
+                "Остатьс и умереть",
+                "Вернуться назад и продолжить путь"
+        });
 
-        int choice = makeChoice(getScanner());
-        if (choice == 1) {
-            System.out.println("За вами пришла смерть");
-            System.out.println("\nGAME OVER");
-            System.out.println("                                           .\"\"--.._\n" +
+        if (result == 0) {
+            System.out.println("За вами пришла смерть"+"\nGAME OVER"+
+                    "                                           .\"\"--.._\n" +
                     "                                           []      `'--.._\n" +
                     "                                           ||__           `'-,\n" +
                     "                                         `)||_ ```'--..       \\\n" +
@@ -66,29 +65,8 @@ public class SceneFirstDeath extends AbstractScene {
                     "`-.___,-.      .-.        ___,'            ||\n" +
                     "         `---'`   `'----'`");
             System.exit(0);
-        } else {
+        } else if (result == 1) {
             getSceneManager().enterScene(SceneNames.SCENE_ONE);
         }
-    }
-
-    private static int makeChoice(Scanner scanner) {
-        int choice;
-        while (true) {
-
-            if (scanner.hasNextInt()) {
-                choice = scanner.nextInt();
-                scanner.nextLine(); // Очистка буфера после считывания числа
-                if (choice > 0 && choice <= 2) {
-                    break; // Выход из цикла, если возраст корректный
-                } else {
-                    System.out.println("Ошибка: Выберите либо 1, либо 2, других вариантов нет.");
-                }
-            } else {
-                System.out.println("Я понимаю что хочется выбрать свой вариант, но бог здесь Я.");
-                System.out.println("Ошибка: Лапушка, пока без отсебятины, выбери корректный вариант (число).");
-                scanner.next(); // Очистка буфера
-            }
-        }
-        return choice;
     }
 }
